@@ -41,23 +41,41 @@ Superhero.prototype.revealIdentity = function () {
   console.log(`${this.name}'s secret identity is ${this.secretIdentity}`);
 };
 
+// Extending functionalities of superheros
+function FlyingSuperhero(name, secretIdentity, powers, weakness, flightSpeed) {
+  Superhero.call(this, name, secretIdentity, powers, weakness);
+  this.flightSpeed = flightSpeed;
+}
+
+FlyingSuperhero.prototype = Object.create(Superhero.prototype);
+FlyingSuperhero.prototype.constructor = FlyingSuperhero;
+
+// Adding a method to the FlyingSuperhero prototype
+FlyingSuperhero.prototype.fly = function () {
+  console.log(`${this.name} is flying at ${this.flightSpeed} mph`);
+};
+
 // Creating multiple superhero instances
-const superman = new Superhero(
+const superman = new FlyingSuperhero(
   "Superman",
   "Clark Kent",
   ["Super Strength", "Flight", "X-ray vision", "Heat vision"],
-  "Kryptonite"
+  "Kryptonite",
+  500
 );
 
 const batman = new Superhero(
   "Batman",
   "Bruce Wayne",
   ["Marital arts", "stealth", "High intelligence"],
-  "none"
+  "none",
+  300
 );
 
 superman.usePower("Flight");
+superman.fly();
 batman.usePower("stealth");
+batman.fly();
 
 superman.revealIdentity();
 batman.revealIdentity();
